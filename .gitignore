@@ -1,0 +1,37 @@
+.build/
+.swiftpm/
+.local/
+.DS_Store
+*.iso
+*.img
+*.dmg
+Open Source Data about Rufus/rufus/
+Open Source Data about Rufus/rufus.wiki/
+Build/
+Open Source Data about Rufus/rufus-source/
+
+Dependencies/wimlib-1.14.5/
+Dependencies/pkgconf-2.5.1/
+
+# Installation media and machine-local data must never enter the source repo.
+*.[iI][sS][oO]
+*.[iI][mM][gG]
+*.[dD][mM][gG]
+*.[wW][iI][mM]
+*.[sS][wW][mM]
+*.[eE][sS][dD]
+*.[vV][hH][dD]
+*.[vV][hH][dD][xX]
+.env
+.env.*
+*.p12
+*.p8
+*.key
+*.pem
+
+# Local research only; never publish this folder.
+/Open Source Data about Rufus/
+/scripts/fetch-rufus.sh
+
+/docs/PUBLICATION_PLAN.md
+/docs/GITHUB_READINESS.md

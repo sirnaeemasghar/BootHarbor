@@ -1,0 +1,40 @@
+name: macOS build and tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      disk_integration:
+        description: Run disposable virtual-disk integration tests
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Verify bundled source and notices
+        run: ./scripts/check-source.sh
+      - name: Build local dependencies
+        run: ./scripts/build-dependencies.sh
+      - name: Unit and safety tests
+        run: ./scripts/swift-local.sh test
+      - name: Disposable disk-image integration tests
+        if: github.event_name == 'workflow_dispatch' && inputs.disk_integration
+        run: ./scripts/test-integration.sh
+      - name: Build and verify local app
+        run: |
+          ./scripts/package-app.sh
+          codesign --verify --deep --strict 'Build/BootHarbor.app'
