@@ -5,7 +5,7 @@ cd "${0:A:h:h}"
 scripts/package-app.sh
 scripts/package-source.sh
 version=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' Build/BootHarbor.app/Contents/Info.plist)
-release="$PWD/Build/Release"
+release="$PWD/Build/Distributions"
 staging="$PWD/Build/DMGContents"
 mkdir -p "$release" "$staging"
 ditto Build/BootHarbor.app "$staging/BootHarbor.app"
